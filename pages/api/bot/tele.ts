@@ -1,22 +1,31 @@
-import { randomInt } from './../../../common/helper';
-import { ALLOW_GROUP, Command, MOCKING_SENTENCES } from './../../../common/constant';
+import { randomInt } from "./../../../common/helper";
+import {
+  ALLOW_GROUP,
+  Command,
+  MOCKING_SENTENCES,
+} from "./../../../common/constant";
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   try {
-    const { text: command, from, chat, reply_to_message } = req?.body?.message || {};
+    const {
+      text: command,
+      from,
+      chat,
+      reply_to_message,
+    } = req?.body?.message || {};
     const text = reply_to_message?.text ?? reply_to_message?.caption;
     if (from?.is_bot) {
-      console.log('Bot is not allow');
+      console.log("Bot is not allow");
       return res.status(401).json({ success: false });
     }
     if (!ALLOW_GROUP.includes(chat?.id)) {
-      console.log('Group is not allow');
-      return res.status(401).json({ success: false });;
+      console.log("Group is not allow");
+      return res.status(401).json({ success: false });
     }
 
     switch (command?.toLowerCase()) {
@@ -36,10 +45,10 @@ export default async function handler(
       //   this.eventEmitter.emit(LANGUAGE.CHAT, { text, groupId: chat?.id });
       //   break;
       default:
-        console.log('Command not valid');
+        console.log("Command not valid");
     }
 
-    res.status(200).json({ success: true })
+    res.status(200).json({ success: true });
   } catch (error) {
     res.status(500).json({ error });
   }
@@ -56,16 +65,14 @@ async function handleTaggingEvent(payload: any) {
 
 function sendTeleMessage(data: any) {
   try {
-    const endpoint = process.env.TELEGRAM_BOT_ENDPOINT + '/sendMessage';
+    const endpoint = process.env.TELEGRAM_BOT_ENDPOINT + "/sendMessage";
     return axios.post(endpoint, null, {
       params: data,
     });
   } catch (error: any) {
-    const errorMessage = error.errors ? error.errors.map((err: any) => err.toString()).join(', ') : error.toString();
+    const errorMessage = error.errors
+      ? error.errors.map((err: any) => err.toString()).join(", ")
+      : error.toString();
     console.error(errorMessage);
   }
-}
-
-function delay(second: number) {
-  return new Promise((resolve) => setTimeout(resolve, second * 1000));
 }
