@@ -39,7 +39,7 @@ export default async function handler(
     } else if (command.startsWith(Command.CHECK_GRAMMAR)) {
       await handleCheckGrammar({ groupId: chat?.id, command: text }, res);
     } else if (command.startsWith(Command.TRANSLATE_ENG)) {
-      await handleCheckGrammar({ groupId: chat?.id, command: text }, res);
+      await handleTranslateToEng({ groupId: chat?.id, command: text }, res);
     } else if (command.startsWith(Command.TRANSLATE_VIE)) {
       await handleTranslateToVie({ groupId: chat?.id, command: text }, res);
     }
@@ -150,7 +150,7 @@ async function handleTranslateToVie(payload: any, res: NextApiResponse) {
 }
 
 function replaceCommand(fullMessage: string) {
-  return fullMessage.replace(/^\/[^@]+@\S*\s*/, '').trim();
+  return fullMessage.replace(/^\/[^\s@]+(@\S*)?\s*/, '').trim();
 }
 
 function sendTeleMessage(data: any, botEndpoint: string | undefined) {

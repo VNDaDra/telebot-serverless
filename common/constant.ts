@@ -18,7 +18,6 @@ export enum Command {
   TRANSLATE_ENG = "/te",
   TRANSLATE_VIE = "/tv",
   CHECK_GRAMMAR = "/cg",
-  CHAT_WITH_AI = "c",
 }
 
 export const BOT_TYPE = {
@@ -26,7 +25,7 @@ export const BOT_TYPE = {
   GPT: process.env.TELEGRAM_GPT_BOT_ENDPOINT,
 }
 
-export const GPT_TEXT_LIMIT = 100;
+export const GPT_TEXT_LIMIT = 10000;
 
 export const MOCKING_SENTENCES = [
   'NO HOPE',
