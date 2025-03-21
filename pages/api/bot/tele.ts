@@ -82,7 +82,7 @@ async function handleTaggingEvent(payload: any, res: NextApiResponse) {
   await sendTeleMessage({
     chat_id: payload.groupId,
     // text: `Let\'s play game \n @VN_DaDra @GoatInTheShell @tannguyen090697 \n @salingun ${randomMockingSentence}`,
-    text: `Let\'s play game \n @VN_DaDra @GoatInTheShell @tannguyen090697 \n @lnnam79`,
+    text: `Game nào ae \n @VN_DaDra @GoatInTheShell @tannguyen090697 \n Và tất nhiên anh @GoatOutTheShell aka @lnnam79 sẽ từ chối`,
   }, BOT_TYPE.GAME);
 }
 
